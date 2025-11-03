@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweet Surprise is waiting for you 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+      color: #fff;
+      transition: background 2s ease;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: absolute;
+      bottom: -10px;
+      color: rgba(255, 255, 255, 0.7);
+      animation: float 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      width: 340px;
+      backdrop-filter: blur(6px);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h2 {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 85%;
+      border: none;
+      border-radius: 5px;
+      outline: none;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #ff5e78;
+      border: none;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff3366;
+      transform: scale(1.05);
+    }
+
+    .error {
+      color: #ffd1dc;
+      margin-top: 12px;
+      font-size: 0.9em;
+    }
+
+    #loveMessage {
+      display: none;
+      font-size: 1.4em;
+      animation: fadeIn 1.5s ease;
+      text-align: center;
+      margin: 20px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = "❤️";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+      heart.style.fontSize = (20 + Math.random() * 20) + "px";
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <!-- Music (change the src link to your chosen mp3 if you want) -->
+  <audio id="bgMusic" src="https://drive.google.com/file/d/1KZhV6riHl0UH9oyen59hb3yWispJzAvp/view?usp=drivesdk"></audio>
+
+  <div class="container" id="formContainer">
+    <h2>There is a sweet little surprise waiting for you 💕</h2>
+    <p>Before you open it, tell me...</p>
+    <p><strong>What is your birthdate (DD/MM/YYYY)?</strong></p>
+    <input type="text" id="birthdate" placeholder="e.g. 05/11/2000">
+    <button onclick="checkAnswer()">Unlock Surprise 🎁</button>
+    <p class="error" id="errorMsg"></p>
+  </div>
+
+  <div id="loveMessage">
+    💖 You’ve unlocked my heart... and your sweet surprise 💌  
+  </div>
+
+  <script>
+    function checkAnswer() {
+      const userAnswer = document.getElementById('birthdate').value.trim();
+      const correctAnswer = "05/11/2000"; // 🎯 Change to her actual birthdate
+      const pdfLink = "https://drive.google.com/file/d/1RkgaY2SLFDHW5yp6qFkS_DFJu0-YKvUF/view?usp=drivesdk"; // 🎁 Replace with your actual PDF link
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById('formContainer').style.display = 'none';
+        document.getElementById('loveMessage').style.display = 'block';
+        document.body.style.background = "linear-gradient(135deg, #ff758c, #ff7eb3)";
+        const music = document.getElementById('bgMusic');
+        music.volume = 0.4;
+        music.play();
+
+        // Redirect after a short pause
+        setTimeout(() => {
+          window.location.href = pdfLink;
+        }, 6000); // Wait 6 seconds before opening the surprise
+      } else {
+        document.getElementById('errorMsg').textContent = "Hmm... that doesn’t seem right, sweetheart. Try again 💕";
+      }
+    }
+  </script>
+</body>
+</html>
